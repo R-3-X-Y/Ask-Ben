@@ -20,9 +20,9 @@ class Bot(discord.Client):
 
 	async def update_presence(self):
 		while True:
-				await self.change_presence(activity=discord.Activity(name=f"{len(self.guilds)} Servers", type=discord.ActivityType.watching))
-				print(f"[{datetime.now()}]\tUpdated presence")
-				await asyncio.sleep(60 * 10)
+			await self.change_presence(activity=discord.Activity(name=f"{len(self.guilds)} Servers", type=discord.ActivityType.watching))
+			print(f"[{datetime.now()}]\tUpdated presence")
+			await asyncio.sleep(60 * 10)
 		
 bot = Bot()
 
