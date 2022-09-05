@@ -33,6 +33,6 @@ async def test_command(interaction: discord.Interaction, question: str):
 	await interaction.response.send_message(message)
 
 
-TOKEN = os.environ["TOKEN"]
+TOKEN = os.environ["DISCORD_TOKEN"]
 bot.run(TOKEN)
 
