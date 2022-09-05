@@ -1,6 +1,6 @@
 import discord, os, random, asyncio
 from discord import app_commands
-from webserver import keep_alive
+from datetime import datetime
 class Bot(discord.Client):
 	synced = False
 	responses = ['Yes.', 'No.', 'Hohoho!', 'Ben?', 'Uhhh.']
@@ -16,21 +16,23 @@ class Bot(discord.Client):
 			self.loop.create_task(self.update_presence())
 			self.synced = True
 			
-		print(f"Logged in as {self.user}")
+		print(f"[{datetime.now()}]\tLogged in as {self.user}")
 
 	async def update_presence(self):
 		while True:
 				await self.change_presence(activity=discord.Activity(name=f"{len(self.guilds)} Servers", type=discord.ActivityType.watching))
+				print(f"[{datetime.now()}]\tUpdated presence")
 				await asyncio.sleep(60 * 10)
 		
 bot = Bot()
 
 @bot.tree.command(name = "ask", description = "Ask Ben a question.", guild = None)
 async def test_command(interaction: discord.Interaction, question: str):
+	print(f"[{datetime.now()}]\t'{interaction.user}' asked: {question}")
 	message = f"**{interaction.user.name}**: {question}\n**{bot.user.name}**: {bot.responses[random.randrange(0, len(bot.responses))]}"
 	await interaction.response.send_message(message)
 
 
 TOKEN = os.environ["TOKEN"]
-keep_alive()
 bot.run(TOKEN)
+
